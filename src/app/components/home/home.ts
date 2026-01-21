@@ -1,26 +1,26 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, signal, WritableSignal } from '@angular/core';
 import { YugiData } from '../../services/yugi-data';
 import { CommonModule } from '@angular/common';
+import { Card } from "../card/card";
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, Card],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
 
     yugiDataService = inject(YugiData);
-    
 
-    cards: any[] = [];
+    cards: WritableSignal<any[]> = signal([]);
 
     constructor(){
       this.yugiDataService.fetchData()
       .then(data => {
         //
-        this.cards = data;
-        console.log(this.cards);
+        this.cards.set(data)
+        console.log(this.cards());
       });
     }
 

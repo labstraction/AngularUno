@@ -1,10 +1,10 @@
 <main>
     <h2>Benvenuto</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-    @for (card of cards; track $index) {
-        <div>
-            <span>{{$index}}:</span>
-            <span>{{card.name}}</span>
-        </div>
-    }
+    <div class="card-container">
+        @for (card of cards(); track $index) {
+            <app-card [cardData]="card"></app-card>
+        }
+    </div>
+
 </main>
